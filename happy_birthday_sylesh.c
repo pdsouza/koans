@@ -1,10 +1,9 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-#define ROWS (5)
-#define COLS (3)
+#define R (5)
+#define C (3)
 
-char *eascii[] = {
+char *e[] = {
     "_-_|_| - | |  _",
     "_ _|  _-_|_|_- ",
     " -_|___ _|_  -_",
@@ -65,13 +64,13 @@ char *eascii[] = {
     "_-_  |_- | __-_",
 };
 
-void segprint(char *s) {
-    for (int i = 0; i < ROWS; ++i) {
+void p(char *s) {
+    for (int i = 0; i < R; ++i) {
         for (char *p = s; *p != '\0'; ++p) {
-            int idx = *p - 'A';
-            for (int j = 0; j < COLS ; ++j) {
-                if (0 <= idx && idx < sizeof(eascii)/sizeof(char*)) {
-                    char c = eascii[idx][i*3+j];
+            int x = *p - 'A';
+            for (int j = 0; j < C ; ++j) {
+                if (0 <= x && x < sizeof(e)/sizeof(char*)) {
+                    char c = e[x][i*3+j];
                     putchar(c == '_' ? ' ' : c);
                 } else {
                     putchar(' ');
@@ -83,7 +82,7 @@ void segprint(char *s) {
     }
 }
 
-int main(int argc, char **argv) {
-    segprint(argc > 1 ? argv[1] : argv[0]);
+int main(int c, char **v) {
+    p(c > 1 ? v[1] : v[0]);
     return 0;
 }
