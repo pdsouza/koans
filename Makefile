@@ -1,6 +1,13 @@
 TARGET := happy_birthday_sylesh
 
+.PHONY: all clean tests
+
 all: $(TARGET)
+
+tests: $(TARGET)
+	cp $(TARGET) tests/
+	cd tests && ./test.sh
+	rm tests/$(TARGET)
 
 $(TARGET): happy_birthday_sylesh.o
 	$(CC) $^ -o $@
