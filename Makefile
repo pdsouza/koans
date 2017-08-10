@@ -2,7 +2,7 @@ TARGET := happy_birthday_sylesh
 
 .PHONY: all clean tests
 
-all: $(TARGET)
+all: tests
 
 tests: $(TARGET)
 	cp $(TARGET) tests/

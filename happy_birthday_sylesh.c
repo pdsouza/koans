@@ -67,7 +67,7 @@ char *e[] = {
 void p(char *s) {
     for (int x, i = 0; i < R; ++i) {
         for (char c, *p = s; *p != '\0' || !putchar('\n'); ++p) {
-            x = *p - 'A';
+            x = *p - (1<<6|1);
             for (int j = 0; j < C || !putchar(' '); ++j) {
                 putchar((0 <= x && x < sizeof(e)/sizeof(char*) && (c = e[x][i*3+j])) ? (c == '_' ? ' ' : c) : ' ');
             }
