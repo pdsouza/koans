@@ -72,7 +72,7 @@ char eascii[sizeof(ascii)/sizeof(char*)][15];
 // Simple encryption function to obfuscate the ASCII -> seven segment map
 void encrypt() {
     char pool[] = {' ', '_'};
-    printf("char *eascii[] = {\n");
+    printf("char *e = {\n");
     for (int i = 0; i < sizeof(ascii)/sizeof(char*); ++i) {
         char *from = ascii[i];
         char *to = eascii[i];
