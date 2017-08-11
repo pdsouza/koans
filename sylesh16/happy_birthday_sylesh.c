@@ -79,9 +79,8 @@ char *E[] = {
 
 void p(char *s) {
     for (int i = 0; i < DR; ++i) {
-        for (char *p = s; *p != '\0'; ++p) {
-            int k = *p - 'A';
-            for (int j = 0; j < DC; ++j) {
+        for (char *p = s; *p != '\0' || !putchar('\n'); ++p) {
+            for (int j = 0, k = *p - 'A'; j < DC; ++j) {
                 if (0 <= k && k < sizeof(E)/sizeof(char*)) {
                     char c = E[k][i * DC + j];
                     putchar(c == '_' ? ' ' : c);
@@ -90,15 +89,13 @@ void p(char *s) {
                 }
             }
         }
-        putchar('\n');
     }
 }
 
 void sp(char *s) {
     char b[PMC + 1] = { 0 };
-    int l = strlen(s);
     b[PMC] = '\0';
-    for (int o = -PMC; o <= l; ++o) {
+    for (int o = -PMC, l = strlen(s); o <= l; ++o) {
         for (int i = 0; i < PMC; ++i) {
             if (i + o < 0 || i + o >= l) {
                 b[i] = ' ';
