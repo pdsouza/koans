@@ -3,15 +3,16 @@ TARGET := happy_birthday_sylesh
 
 .PHONY: all clean tests
 
-all: tests
+all: $(TARGET)
 
-tests: $(TARGET)
+%: %.c
+	$(CC) $(CFLAGS) $^ -o $@
+
+tests: CFLAGS += -DDEBUG
+tests: clean $(TARGET)
 	@cp $(TARGET) tests/
-	@cd tests && ./test.sh
+	@cd tests && ./test.sh $(TARGET)
 	@rm tests/$(TARGET)
-
-$(TARGET): happy_birthday_sylesh.o
-	$(CC) $^ -o $@
 
 clean:
 	@if [ -f $(TARGET) ] ; then rm $(TARGET); fi

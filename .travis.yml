@@ -1,3 +1,3 @@
 language: c
 
-script: cd happy_birthday_sylesh && make && ./happy_birthday_sylesh
+script: cd sylesh16 && make && ./happy_birthday_sylesh
