@@ -1,6 +1,4 @@
 /*
- * Scrolling 7 Segment Display Terminal Emulator
- *
  * Happy 16th Birthday Sylesh!
  *
  * Copyright 2017 Preetam J. D'Souza
@@ -18,70 +16,6 @@
 #define PANEL_MAX_CHARS (PANEL_WIDTH/DISP_COLS)
 #define USPF (250000)
 
-// ASCII -> seven segment
-char *ascii[] = {
-    " -- |  | -- |  |    ", // A
-    "    |    -- |  | -- ", // B
-    " -- |       |    -- ", // ...
-    "       | -- |  | -- ",
-    " -- |    -- |    -- ",
-    " -- |    -- |       ",
-    " -- |    -- |  | -- ",
-    "    |  | -- |  |    ",
-    "    |       |       ",
-    "       |       | -- ",
-    "    |  | -- |  |    ",
-    "    |       |    -- ",
-    " --    | --    | -- ",
-    "         -- |  |    ",
-    " -- |  |    |  | -- ",
-    " -- |  | -- |       ",
-    " -- |  | --    |    ",
-    "         -- |       ",
-    " -- |    --    | -- ",
-    "    |    -- |    -- ",
-    "    |  |    |  | -- ",
-    "            |  | -- ",
-    " -- |    -- |    -- ",
-    "    |  | -- |  |    ",
-    "    |  | --    | -- ",
-    " --    | -- |    -- ", // Z
-    "                    ",
-    "                    ",
-    "                    ",
-    "                    ",
-    "                    ",
-    "                    ",
-    " -- |  | -- |  |    ", // a
-    "    |    -- |  | -- ", // b
-    " -- |       |    -- ", // ...
-    "       | -- |  | -- ",
-    " -- |    -- |    -- ",
-    " -- |    -- |       ",
-    " -- |    -- |  | -- ",
-    "    |  | -- |  |    ",
-    "    |       |       ",
-    "       |       | -- ",
-    "    |  | -- |  |    ",
-    "    |       |    -- ",
-    " --    | --    | -- ",
-    "         -- |  |    ",
-    " -- |  |    |  | -- ",
-    " -- |  | -- |       ",
-    " -- |  | --    |    ",
-    "         -- |       ",
-    " -- |    --    | -- ",
-    "    |    -- |    -- ",
-    "    |  |    |  | -- ",
-    "            |  | -- ",
-    " -- |    -- |    -- ",
-    "    |  | -- |  |    ",
-    "    |  | --    | -- ",
-    " --    | -- |    -- ", // z
-};
-
-// Obfuscated ASCII map
-//char eascii[sizeof(ascii)/sizeof(char*)][20];
 char *eascii[] = {
     "_--_|_ | -- |  |__ _",
     "  __|__  --_|__|_-- ",
@@ -143,25 +77,6 @@ char *eascii[] = {
     " --   _|_-- |__  --_",
 };
 
-// Simple encryption function to obfuscate the ASCII -> seven segment map
-void __encrypt() {
-    char pool[] = {' ', '_'};
-    fprintf(stderr, "char *e[] = {\n");
-    for (int i = 0; i < sizeof(ascii)/sizeof(char*); ++i) {
-        char *from = ascii[i];
-        char *to = eascii[i];
-        for (; *from != '\0'; ++from, ++to) {
-            if (*from == ' ') { // randomly map whitespace to pool
-                *to = pool[rand()%sizeof(pool)];
-            } else {
-                *to = *from;
-            }
-        }
-        fprintf(stderr, "\"%s\",\n", eascii[i]);
-    }
-    fprintf(stderr, "};\n");
-}
-
 void print_seven_segment(char *s) {
     for (int i = 0; i < DISP_ROWS; ++i) {
         for (char *p = s; *p != '\0'; ++p) {
@@ -200,7 +115,6 @@ void scroll_print_seven_segment(char *s) {
 }
 
 int main(int argc, char **argv) {
-    //__encrypt();
     scroll_print_seven_segment(argc > 1 ? argv[1] : argv[0]);
     return 0;
 }
