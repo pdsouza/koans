@@ -78,22 +78,18 @@ char *E[] = {
 };
 
 void p(char *s) {
-    for (int i = 0; i < DR; ++i) {
-        for (char *p = s, c; *p != '\0' || !putchar('\n'); ++p) {
-            for (int j = 0, k = *p - 'A'; j < DC; ++j) {
+    for (int i = 0; i < DR; ++i)
+        for (char *p = s, c; *p != '\0' || !putchar('\n'); ++p)
+            for (int j = 0, k = *p - (1<<6|1); j < DC; ++j)
                 putchar(0 <= k && k < sizeof(E)/sizeof(char*) && (c = E[k][i * DC + j]) ? (c == '_' ? ' ' : c) : ' ');
-            }
-        }
-    }
 }
 
 void sp(char *s) {
     char b[PMC + 1] = { 0 };
     b[PMC] = '\0';
     for (int o = -PMC, l = strlen(s); o <= l; ++o) {
-        for (int i = 0; i < PMC; ++i) {
+        for (int i = 0; i < PMC; ++i)
             b[i] = i + o < 0 || i + o >= l ? ' ' : s[i + o];
-        }
         p(b);
 #ifndef DEBUG
         usleep(USPF);
@@ -103,6 +99,6 @@ void sp(char *s) {
 }
 
 int main(int c, char **v) {
-    sp(c > 1 ? v[1] : v[0]);
+    sp(*(v + (c > 1)));
     return 0;
 }
