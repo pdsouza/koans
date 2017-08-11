@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -e
 
 cp "$1" happy_birthday_sylesh &>/dev/null || true
