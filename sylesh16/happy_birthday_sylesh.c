@@ -79,14 +79,9 @@ char *E[] = {
 
 void p(char *s) {
     for (int i = 0; i < DR; ++i) {
-        for (char *p = s; *p != '\0' || !putchar('\n'); ++p) {
+        for (char *p = s, c; *p != '\0' || !putchar('\n'); ++p) {
             for (int j = 0, k = *p - 'A'; j < DC; ++j) {
-                if (0 <= k && k < sizeof(E)/sizeof(char*)) {
-                    char c = E[k][i * DC + j];
-                    putchar(c == '_' ? ' ' : c);
-                } else {
-                    putchar(' ');
-                }
+                putchar(0 <= k && k < sizeof(E)/sizeof(char*) && (c = E[k][i * DC + j]) ? (c == '_' ? ' ' : c) : ' ');
             }
         }
     }
@@ -97,11 +92,7 @@ void sp(char *s) {
     b[PMC] = '\0';
     for (int o = -PMC, l = strlen(s); o <= l; ++o) {
         for (int i = 0; i < PMC; ++i) {
-            if (i + o < 0 || i + o >= l) {
-                b[i] = ' ';
-            } else {
-                b[i] = s[i + o];
-            }
+            b[i] = i + o < 0 || i + o >= l ? ' ' : s[i + o];
         }
         p(b);
 #ifndef DEBUG
