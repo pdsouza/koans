@@ -1,3 +1,4 @@
+CFLAGS := -std=c99
 TARGET := happy_birthday_sylesh
 
 .PHONY: all clean tests
