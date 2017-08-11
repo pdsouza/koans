@@ -9,14 +9,14 @@
 #include <unistd.h>
 #include <string.h>
 
-#define PANEL_WIDTH  (80)
-#define PANEL_HEIGHT (5)
-#define DISP_ROWS (PANEL_HEIGHT)
-#define DISP_COLS (4)
-#define PANEL_MAX_CHARS (PANEL_WIDTH/DISP_COLS)
+#define PW   (80)
+#define PH   (5)
+#define DR   (PH)
+#define DC   (4)
+#define PMC  (PW/DC)
 #define USPF (250000)
 
-char *eascii[] = {
+char *E[] = {
     "_--_|_ | -- |  |__ _",
     "  __|__  --_|__|_-- ",
     "_--_|  __  _| ___--_",
@@ -77,13 +77,13 @@ char *eascii[] = {
     " --   _|_-- |__  --_",
 };
 
-void print_seven_segment(char *s) {
-    for (int i = 0; i < DISP_ROWS; ++i) {
+void p(char *s) {
+    for (int i = 0; i < DR; ++i) {
         for (char *p = s; *p != '\0'; ++p) {
-            int idx = *p - 'A';
-            for (int j = 0; j < DISP_COLS ; ++j) {
-                if (0 <= idx && idx < sizeof(eascii)/sizeof(char*)) {
-                    char c = eascii[idx][i * DISP_COLS + j];
+            int k = *p - 'A';
+            for (int j = 0; j < DC; ++j) {
+                if (0 <= k && k < sizeof(E)/sizeof(char*)) {
+                    char c = E[k][i * DC + j];
                     putchar(c == '_' ? ' ' : c);
                 } else {
                     putchar(' ');
@@ -94,27 +94,27 @@ void print_seven_segment(char *s) {
     }
 }
 
-void scroll_print_seven_segment(char *s) {
-    char buf[PANEL_MAX_CHARS + 1] = { 0 };
-    int slen = strlen(s);
-    buf[PANEL_MAX_CHARS] = '\0';
-    for (int offset = -PANEL_MAX_CHARS; offset <= slen; ++offset) {
-        for (int i = 0; i < PANEL_MAX_CHARS; ++i) {
-            if (i + offset < 0 || i + offset >= slen) {
-                buf[i] = ' ';
+void sp(char *s) {
+    char b[PMC + 1] = { 0 };
+    int l = strlen(s);
+    b[PMC] = '\0';
+    for (int o = -PMC; o <= l; ++o) {
+        for (int i = 0; i < PMC; ++i) {
+            if (i + o < 0 || i + o >= l) {
+                b[i] = ' ';
             } else {
-                buf[i] = s[i + offset];
+                b[i] = s[i + o];
             }
         }
-        print_seven_segment(buf);
+        p(b);
 #ifndef DEBUG
         usleep(USPF);
-        printf("\e[%dA\r", DISP_ROWS);
+        printf("\e[%dA\r", DR);
 #endif
     }
 }
 
-int main(int argc, char **argv) {
-    scroll_print_seven_segment(argc > 1 ? argv[1] : argv[0]);
+int main(int c, char **v) {
+    sp(c > 1 ? v[1] : v[0]);
     return 0;
 }
