@@ -1,5 +1,5 @@
- // Happy 16th Birthday Sylesh!
- // Copyright 2017 Preetam J. D'Souza
+// Happy 16th Birthday Sylesh!
+// Copyright 2017 Preetam J. D'Souza
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
