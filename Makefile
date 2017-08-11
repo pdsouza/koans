@@ -5,9 +5,9 @@ TARGET := happy_birthday_sylesh
 all: tests
 
 tests: $(TARGET)
-	cp $(TARGET) tests/
-	cd tests && ./test.sh
-	rm tests/$(TARGET)
+	@cp $(TARGET) tests/
+	@cd tests && ./test.sh
+	@rm tests/$(TARGET)
 
 $(TARGET): happy_birthday_sylesh.o
 	$(CC) $^ -o $@
